@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 const ip = require('ip')
+const key = require('../middleware/random')
 let User = require('../models/user')
 
 router.get('/', async (req, res) => {
@@ -11,6 +12,13 @@ router.get('/', async (req, res) => {
   const companions = await User.find({ "myself.connection": false, "myself.warnings.banned": false });
   const userItems = user[0];
 
+
+  await Promise.all(companions.map(async companion => {
+    if (userItems.companion.themes == companion.companion.themes) {
+      searching(userItems, companion);
+    }
+  }))
+
   async function searching(u, c) {
     if (
       u.companion.gender == c.myself.gender &&
@@ -20,22 +28,35 @@ router.get('/', async (req, res) => {
 
       const Id = c.myself.userId;
       search.push(Id);
+      const companionId = search[0];
+      const companion = await User.find({ "myself.userId": companionId });
+      const companionItems = companion[0];
+      await sendKey(userItems, companionItems);
     }
   }
 
-  await Promise.all(companions.map(async companion => {
-    if (userItems.companion.themes == companion.companion.themes) {
-      searching(userItems, companion);
+
+  async function sendKey(user, companion) {
+    try {
+      const ioKey = key.createId();
+      const c = companion.myself
+      const u = user.myself;
+      c.ioKey = u.ioKey = ioKey;
+      c.connection = u.connection = false;
+
+      await companion.save();
+      await user.save();
+
+      console.log('change');
+      
+
+    } catch (e) {
+      console.log(e);
+
     }
-  }))
 
-  const companionId = search[0];
-  const companion = await User.find({ "myself.userId": companionId});
-  
-  
-  
-  
 
+  }
 })
 
 

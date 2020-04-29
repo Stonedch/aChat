@@ -3,6 +3,7 @@ const keys = require('./keys');
 const mongoose = require('mongoose');
 const searchRoutes = require('./routes/search');
 const homeRoutes = require('./routes/home');
+const chatRoutes = require('./routes/chat')
 
 
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/', homeRoutes);
 app.use('/search', searchRoutes);
+app.use('/chat', chatRoutes);
 
 
 async function start() {

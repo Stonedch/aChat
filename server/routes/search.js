@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
 
       await companion.save();
       await user.save();
-
+      res.redirect('/chat')
       console.log('change');
       
 
@@ -58,8 +58,6 @@ router.get('/', async (req, res) => {
 
   }
 })
-
-
 
 
 module.exports = router

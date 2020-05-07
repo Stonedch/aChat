@@ -20,7 +20,7 @@ app.use(express.json());
 app.use("/static", express.static('./static/'));
 
 app.use('/', homeRoutes);
-app.use('/search', searchRoutes);
+app.use('/search', searchRoutes.router);
 app.use('/chat', chatRoutes);
 
 

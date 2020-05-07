@@ -5,17 +5,16 @@ const key = require('../middleware/random')
 let User = require('../models/user')
 
 router.get('/', async (req, res) => {
-  res.send('search')
   const search = [];
   const userId = ip.address().toString();
   const user = await User.find({ "myself.userId": userId })
-  const companions = await User.find({ "myself.connection": false, "myself.warnings.banned": false });
   const userItems = user[0];
+  const companions = await User.find({ "myself.connection": false, "myself.warnings.banned": false });
 
 
   await Promise.all(companions.map(async companion => {
     if (userItems.companion.themes == companion.companion.themes) {
-      searching(userItems, companion);
+      await searching(userItems, companion);
     }
   }))
 
@@ -46,18 +45,15 @@ router.get('/', async (req, res) => {
 
       await companion.save();
       await user.save();
+      console.log('add key');
       res.redirect('/chat')
-      console.log('change');
-      
-
     } catch (e) {
       console.log(e);
 
     }
-
-
   }
+  
+
 })
 
-
-module.exports = router
+module.exports = { router }

@@ -1,0 +1,136 @@
+.body__container {
+  padding: 15px 0;
+}
+
+.grid {
+  display: -ms-grid;
+  display: grid;
+}
+
+.title {
+  color: #1A181C;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.body__title {
+  margin-bottom: 12px;
+}
+
+.button {
+  font-size: 24px;
+  line-height: 28px;
+  color: white;
+  padding: 13px 6px;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.shadow:hover {
+  -webkit-transition: .6s;
+  transition: .6s;
+}
+
+.blue {
+  background-color: #2d9cdb;
+}
+
+.orange {
+  background-color: #f2c94c;
+}
+
+.red {
+  background-color: #A22626;
+}
+
+.active {
+  -webkit-box-shadow: -5px 5px 2px #5EC6D9;
+          box-shadow: -5px 5px 2px #5EC6D9;
+}
+
+.button_blue:hover {
+  -webkit-box-shadow: -5px 5px 2px #5EC6D9;
+          box-shadow: -5px 5px 2px #5EC6D9;
+}
+
+.button_orange:hover {
+  -webkit-box-shadow: -5px 5px 2px #FFDE79;
+          box-shadow: -5px 5px 2px #FFDE79;
+}
+
+.button_red:hover {
+  -webkit-box-shadow: -5px 5px 2px #CF5959;
+          box-shadow: -5px 5px 2px #CF5959;
+}
+
+.body__data {
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 47px;
+}
+
+.body__input {
+  font-size: 17px;
+  width: 60%;
+  border: none;
+  padding: 5px 12px;
+  color: white;
+  font-family: 'Roboto';
+}
+
+.body__input::-webkit-input-placeholder {
+  color: #D8D8D8;
+  font-size: 17px;
+}
+
+.body__input:-ms-input-placeholder {
+  color: #D8D8D8;
+  font-size: 17px;
+}
+
+.body__input::-ms-input-placeholder {
+  color: #D8D8D8;
+  font-size: 17px;
+}
+
+.body__input::placeholder {
+  color: #D8D8D8;
+  font-size: 17px;
+}
+
+.body__columns {
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+.none {
+  height: 20px;
+}
+
+.background__button {
+  font-family: "Roboto";
+  padding: 2px 8px;
+  background-color: #2d9cdb;
+}
+
+.background__button:hover {
+  background-color: #92A441;
+  -webkit-transition: .6s;
+  transition: .6s;
+}
+
+.button-submit {
+  margin-top: 30px;
+  background-color: #92A441;
+  padding: 6px 13px;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.button-submit:hover {
+  -webkit-box-shadow: -5px 5px 2px #A7BE3F;
+          box-shadow: -5px 5px 2px #A7BE3F;
+}

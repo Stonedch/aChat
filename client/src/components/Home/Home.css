@@ -122,8 +122,12 @@
   transition: .6s;
 }
 
+.background__button_active {
+  background-color: #92A441;
+}
+
 .button-submit {
-  margin-top: 30px;
+  margin-top: 20px;
   background-color: #92A441;
   padding: 6px 13px;
   -ms-grid-column-align: center;

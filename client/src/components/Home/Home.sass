@@ -26,6 +26,7 @@ $green: #92A441
     border: none
     cursor: pointer
     transition: .5s
+    outline: none
 .shadow
     &:hover
       transition: .6s
@@ -35,9 +36,8 @@ $green: #92A441
     background-color: $orange
 .red
     background-color: $red
-
 .active
-    box-shadow: -5px 5px 2px #5EC6D9
+    background-color: black
 
 .button_blue
     &:hover
@@ -58,11 +58,13 @@ $green: #92A441
     width: 60%
     border: none
     padding: 5px 12px
+    outline: none
     color: white
     font-family: 'Roboto'
     &::placeholder
         color: #D8D8D8
         font-size: 17px
+        
     
 .body__columns
     grid-template-columns: 1fr 1fr

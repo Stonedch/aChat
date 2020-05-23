@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm start",
-    "dev": "nodemon index"
+    "server": "nodemon index",
+    "client": "npm run start --prefix ../client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "mongoose",
@@ -23,6 +25,7 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "nodemon": "^2.0.3"
   }
 }

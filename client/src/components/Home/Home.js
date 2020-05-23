@@ -37,7 +37,7 @@ export const Home = () => {
 
   const show = () => {
 
-    console.log(companion);
+    console.log(user);
   }
 
   const updateState = (setFunction, value) => {
@@ -110,17 +110,24 @@ export const Home = () => {
   }
 
   const themesClass = (cls) => {
-    const b = '#5EC6D9';
-    const orn = '#FFDE79';
-    const red = '#CF5959';
-    if (cls.className.includes('blue')) {
-      cls.style = `box-shadow: ${active.boxShadow} ${b}`
-    }
-    else if (cls.className.includes('red')) {
-      cls.style = `box-shadow: ${active.boxShadow} ${red}`
-    }
-    else {
-      cls.style = `box-shadow: ${active.boxShadow} ${orn}`
+    const blueShadow = '#5EC6D9'
+    const orangeShadow = '#FFDE79'
+    const redShadow = '#CF5959'
+    if (cls.className.includes('blue')) { changeColorForms(cls, 'blue', blueShadow) }
+    else if (cls.className.includes('red')) { changeColorForms(cls, 'red', redShadow) }
+    else { changeColorForms(cls, 'orange', orangeShadow) }
+  }
+
+  const changeColorForms = (cls, color, colorShadow) => {
+    const buttonsColor = document.getElementsByClassName('background__button')
+    const inputColor = document.getElementsByClassName('body__input')
+    cls.style = `box-shadow: ${active.boxShadow} ${colorShadow}`
+    inputColor[0].classList.remove('red', 'blue', 'orange')
+    inputColor[0].classList.add(`${color}`)
+    for (let i = 0; i < buttonsColor.length; i++) {
+      const el = buttonsColor[i];
+      el.classList.remove('red', 'blue', 'orange')
+      el.classList.add(`${color}`)
     }
   }
 
@@ -171,7 +178,7 @@ export const Home = () => {
 
   return (
     <section className="home">
-      <form action="" className="form grid">
+      <form action="searching" method='post' className="form grid">
         <section className="home__container">
 
 
@@ -199,7 +206,7 @@ export const Home = () => {
                 <input
                   name='themes'
                   type="button"
-                  value="Флирт 18+"
+                  value="..."
                   className={`button shadow button_red red`}
                   onClick={e => updateState(setCompanion, { [e.target.name]: 'flirt' }, addActive(e))}
                 />
@@ -238,21 +245,21 @@ export const Home = () => {
                       name='gender'
                       type="button"
                       value="?"
-                      className="button  background__button background__button_active"
+                      className="blue button  background__button background__button_active"
                       onClick={e => updateState(setMyself, { [e.target.name]: e.target.value }, addActive(e))}
                     />
                     <input
                       name='gender'
                       type="button"
                       value="М"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: e.target.value }, addActive(e))}
                     />
                     <input
                       name='gender'
                       type="button"
                       value="Ж"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: e.target.value }, addActive(e))}
                     />
 
@@ -270,22 +277,22 @@ export const Home = () => {
                       name='genderF'
                       type="button"
                       value="?"
-                      className="button  background__button background__button_active"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: arrayGender(e.target.value) })}
+                      className="blue button  background__button background__button_active"
+                      onClick={e => updateState(setCompanion, { 'gender': arrayGender(e.target.value) })}
                     />
                     <input
                       name='genderF'
                       type="button"
                       value="М"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: arrayGender(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'gender': arrayGender(e.target.value) }, addActiveF(e))}
                     />
                     <input
                       name='genderF'
                       type="button"
                       value="Ж"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: arrayGender(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'gender': arrayGender(e.target.value) }, addActiveF(e))}
                     />
                   </div>
                 </div>
@@ -308,7 +315,7 @@ export const Home = () => {
                       name='year'
                       type="button"
                       value="?"
-                      className="button  background__button background__button_active"
+                      className="blue button background__button background__button_active"
                       onClick={e => updateState(setMyself, { [e.target.name]: 0 }, addActive(e))}
 
                     />
@@ -316,14 +323,14 @@ export const Home = () => {
                       name='year'
                       type="button"
                       value="< 16"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: 16 }, addActive(e))}
                     />
                     <input
                       name='year'
                       type="button"
                       value="17 - 21"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: 17 }, addActive(e))}
                     />
                   </div>
@@ -335,21 +342,21 @@ export const Home = () => {
                       name='year'
                       type="button"
                       value="22 - 27"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: 22 }, addActive(e))}
                     />
                     <input
                       name='year'
                       type="button"
                       value="28 - 35"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: 28 }, addActive(e))}
                     />
                     <input
                       name='year'
                       type="button"
                       value="36 <"
-                      className="button  background__button"
+                      className="blue button  background__button"
                       onClick={e => updateState(setMyself, { [e.target.name]: 36 }, addActive(e))}
                     />
                   </div>
@@ -366,22 +373,22 @@ export const Home = () => {
                       name='yearF'
                       type="button"
                       value="?"
-                      className="button  background__button background__button_active"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: 0 })}
+                      className="blue button  background__button background__button_active"
+                      onClick={e => updateState(setCompanion, { 'year': 0 })}
                     />
                     <input
                       name='yearF'
                       type="button"
                       value="< 16"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: findNumber(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'year': findNumber(e.target.value) }, addActiveF(e))}
                     />
                     <input
                       name='yearF'
                       type="button"
                       value="17 - 21"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: findNumber(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'year': findNumber(e.target.value) }, addActiveF(e))}
                     />
                   </div>
                 </div>
@@ -392,22 +399,22 @@ export const Home = () => {
                       name='yearF'
                       type="button"
                       value="22 - 27"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: findNumber(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'year': findNumber(e.target.value) }, addActiveF(e))}
                     />
                     <input
                       name='yearF'
                       type="button"
                       value="28 - 35"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: findNumber(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'year': findNumber(e.target.value) }, addActiveF(e))}
                     />
                     <input
                       name='yearF'
                       type="button"
                       value="36 <"
-                      className="button  background__button"
-                      onClick={e => updateState(setCompanion, { [e.target.name]: findNumber(e.target.value) }, addActiveF(e))}
+                      className="blue button  background__button"
+                      onClick={e => updateState(setCompanion, { 'year': findNumber(e.target.value) }, addActiveF(e))}
                     />
                   </div>
                 </div>

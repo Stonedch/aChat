@@ -80,6 +80,8 @@
   outline: none;
   color: white;
   font-family: 'Roboto';
+  -webkit-transition: .6s;
+  transition: .6s;
 }
 
 .body__input::-webkit-input-placeholder {
@@ -114,7 +116,6 @@
 .background__button {
   font-family: "Roboto";
   padding: 2px 8px;
-  background-color: #2d9cdb;
 }
 
 .background__button:hover {

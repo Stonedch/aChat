@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react"
 import './Home.css';
 import reducer from './reducer'
+import { useHTTP } from "../../hooks/http";
 
 export const Home = () => {
 
@@ -34,10 +35,18 @@ export const Home = () => {
   const [number, setNumber] = useState([])
   const [gender, setGender] = useState([])
 
+  const { loading, error, request } = useHTTP()
+
+  const sendData = async (e) => {
+    e.preventDefault()
+    try {
+      const data = await request('/add','POST', {...user})
+    } catch (e) { }
+  }
 
   const show = () => {
-
     console.log(user);
+    
   }
 
   const updateState = (setFunction, value) => {
@@ -178,7 +187,7 @@ export const Home = () => {
 
   return (
     <section className="home">
-      <form action="searching" method='post' className="form grid">
+      <form  className="form grid">
         <section className="home__container">
 
 
@@ -427,8 +436,8 @@ export const Home = () => {
 
 
         </section>
-        <input type="button" onClick={show} className='button blue' value='test' />
-        <button type="submit" className='button shadow button-submit'>Поиск</button>
+        <input type="button" onClick={sendData} className='button shadow button-submit' value='Поиск' />
+
       </form>
 
     </section>

@@ -12,10 +12,10 @@ const homeRoutes = require('./routes/home');
 const chatRoutes = require('./routes/chat')(app.io)
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 
-app.use(express.json({ extended: true}));
+app.use(express.json({extended: true}));
 
 app.use("/static", express.static('./static/'));
 

@@ -7,11 +7,22 @@
   display: grid;
 }
 
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .title {
   color: #1A181C;
   font-size: 15px;
   line-height: 18px;
   font-weight: 500;
+}
+
+.grey {
+  background-color: grey !important;
+  cursor: not-allowed !important;
 }
 
 .body__title {
@@ -139,4 +150,112 @@
 .button-submit:hover {
   -webkit-box-shadow: -5px 5px 2px #A7BE3F;
           box-shadow: -5px 5px 2px #A7BE3F;
+}
+
+.rules {
+  background-color: white;
+  width: 25vw;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 5px;
+  border: 1.4px solid grey;
+}
+
+.rules h1 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.rules h2 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.rules li {
+  font-size: .9rem;
+  margin-left: 25px;
+  font-weight: 300;
+}
+
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  outline: none;
+  margin-right: -50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.rules__buttons {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.rules__buttons button {
+  font-size: 1.3rem;
+  font-weight: 100;
+}
+
+.rules__buttons .button-cancel {
+  padding: 6px 13px;
+}
+
+.modal-show {
+  -webkit-animation: modal-show .6s 1 ease;
+          animation: modal-show .6s 1 ease;
+}
+
+@-webkit-keyframes modal-show {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+@keyframes modal-show {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+.ReactModal__Overlay--after-open {
+  -webkit-transition: all .6s ease-out;
+  transition: all .6s ease-out;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ReactModal__Overlay--after-open .rules {
+  -webkit-transition: all .6s ease-out;
+  transition: all .6s ease-out;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.ReactModal__Overlay--before-close .rules {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
 }

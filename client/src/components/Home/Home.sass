@@ -9,11 +9,17 @@ $green: #92A441
 .grid
     display: grid
 
+.flex
+    display: flex
+
 .title
     color: #1A181C
     font-size: 15px
     line-height: 18px
     font-weight: 500
+.grey
+    background-color: grey !important
+    cursor:  not-allowed !important
 
 .body__title
     margin-bottom: 12px
@@ -85,10 +91,6 @@ $green: #92A441
 .background__button_active
     background-color: $green
 
-
-
-
-
 .button-submit
     margin-top: 20px
     background-color: $green
@@ -96,3 +98,78 @@ $green: #92A441
     justify-self: center
     &:hover
         box-shadow: -5px 5px 2px #A7BE3F
+
+.rules
+    background-color: white
+    width: 25vw
+    padding: 30px
+    max-width: 300px
+    border-radius: 5px
+    border: 1.4px solid grey
+    h1
+        text-align: center
+        font-size: 1.4rem
+        margin-bottom: 20px
+        font-weight: 400
+    h2
+        font-size: 1rem
+        margin-bottom: 10px
+    li
+        font-size: .9rem
+        margin-left: 25px
+        font-weight: 300
+
+.Modal
+    position: absolute
+    top: 50%
+    left: 50%
+    right: auto
+    bottom: auto
+    outline: none
+    margin-right: -50%
+    transform: translate(-50%, -50%)
+.Overlay 
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: rgba(255,255,255,.7)
+  
+
+.rules__buttons
+    justify-content: space-around
+    align-items: baseline
+    button
+        font-size: 1.3rem
+        font-weight: 100
+    .button-cancel
+        padding: 6px 13px   
+
+.modal-show
+    animation: modal-show .6s 1 ease
+
+@keyframes modal-show
+  0%
+      transform: scale(0)
+//   45%
+//       transform: scale(1.05)
+//   80% 
+//       transform: scale(.95)
+  100%
+      transform: scale(1)
+
+
+.ReactModal__Overlay--after-open
+    transition: all .6s ease-out
+    background-color: rgba(255,255,255,.7)
+    .rules
+        transition: all .6s ease-out
+        transform: scale(1)
+        opacity: 1
+
+.ReactModal__Overlay--before-close
+    background-color: rgba(255,255,255,0)
+    .rules
+        transform: scale(0)
+        opacity: 0

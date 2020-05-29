@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useReducer } from "react"
+import Modal from 'react-modal';
 import './Home.css';
 import reducer from './reducer'
 import { useHTTP } from "../../hooks/http";
 
+
 export const Home = () => {
+  Modal.setAppElement(document.getElementById('home'));
 
   //   const [user, setUser] = useState({
   //     myself: {
@@ -34,19 +37,22 @@ export const Home = () => {
   const [user, setUser] = useState({ myself, companion })
   const [number, setNumber] = useState([])
   const [gender, setGender] = useState([])
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const [rules, setRules] = useState({
+    talk: 0,
+    problem: 0,
+    flirt: 0
+  })
+
 
   const { loading, error, request } = useHTTP()
+
 
   const sendData = async (e) => {
     e.preventDefault()
     try {
-      const data = await request('/add','POST', {...user})
+      const data = await request('/add', 'POST', { ...user })
     } catch (e) { }
-  }
-
-  const show = () => {
-    console.log(user);
-    
   }
 
   const updateState = (setFunction, value) => {
@@ -54,8 +60,6 @@ export const Home = () => {
       ...state,
       ...value
     }))
-
-
   }
 
   const checkDuplicateArray = (el, arr) => {
@@ -91,6 +95,32 @@ export const Home = () => {
     return arr
   }
 
+  const handlerGrey = (name, bool) => {
+    const data = [...document.getElementsByName(`${name}`)].slice(1)
+    for (let i = 0; i < data.length; i++) {
+      const el = data[i];
+      el.disabled = bool
+      if (el.disabled === true) {
+        if (el.name.indexOf('year') === 0) {
+          updateState(setCompanion, { year: null })
+          updateState(setMyself, { year: null })
+        } else {
+          updateState(setCompanion, { gender: null })
+        }
+        removeClass(name)
+        addClassFirstElement(name)
+        el.classList.add('grey')
+      } else {
+        el.classList.remove('grey')
+      }
+    }
+  }
+
+  useEffect(() => {
+    handlerGrey('genderF', true)
+    handlerGrey('yearF', true)
+    handlerGrey('year', true)
+  }, [])
 
   useEffect(() => {
     setCompanion({ gender: checkLength(gender), year: checkLength(number) })
@@ -118,13 +148,20 @@ export const Home = () => {
     }
   }
 
-  const themesClass = (cls) => {
+  const themesClass = (e) => {
+    removeClass(e.name)
     const blueShadow = '#5EC6D9'
     const orangeShadow = '#FFDE79'
     const redShadow = '#CF5959'
-    if (cls.className.includes('blue')) { changeColorForms(cls, 'blue', blueShadow) }
-    else if (cls.className.includes('red')) { changeColorForms(cls, 'red', redShadow) }
-    else { changeColorForms(cls, 'orange', orangeShadow) }
+    if (e.className.includes('blue')) {
+      changeColorForms(e, 'blue', blueShadow)
+    }
+    else if (e.className.includes('red')) {
+      changeColorForms(e, 'red', redShadow)
+    }
+    else {
+      changeColorForms(e, 'orange', orangeShadow)
+    }
   }
 
   const changeColorForms = (cls, color, colorShadow) => {
@@ -140,18 +177,15 @@ export const Home = () => {
     }
   }
 
-  const addActive = (e) => {
-    removeClass(e.target.name)
-    if (e.target.name === 'themes') { themesClass(e.target) }
-    else {
-      e.target.classList.add('background__button_active')
-    }
-  }
-
-
   const addClassFirstElement = name => {
-    const names = document.getElementsByName(name);
+    const names = document.getElementsByName(name)
     names[0].classList.add('background__button_active')
+    if (name === 'genderF') {
+      updateState(setCompanion, { gender: null })
+    } else {
+      updateState(setCompanion, { year: null })
+
+    }
   }
   const removeClassFirstElement = name => {
     const names = document.getElementsByName(name);
@@ -173,6 +207,26 @@ export const Home = () => {
 
   }
 
+  const handlerGreyChoose = (name, bool) => {
+    if (name === 'gender') {
+      handlerGrey('genderF', bool)
+      handlerGrey('year', bool)
+    } else {
+      handlerGrey('yearF', bool)
+    }
+  }
+  const addActive = (e) => {
+    if (e.target.classList.contains('background__button_active')) {
+      e.target.classList.remove('background__button_active')
+      addClassFirstElement(e.target.name)
+      handlerGreyChoose(e.target.name, true)
+    } else {
+      removeClass(e.target.name)
+      e.target.classList.add('background__button_active')
+      handlerGreyChoose(e.target.name, false)
+    }
+  }
+
   const addActiveF = (e) => {
     const name = e.target.name
     e.target.classList.toggle('background__button_active')
@@ -184,10 +238,88 @@ export const Home = () => {
   }
 
 
+  const rulesContainer = () => {
+    let themes = ''
+    switch (user.companion.themes) {
+      case 'talk':
+        themes = "Общение"
+        break;
+      case 'problem':
+        themes = "Проблемы"
+        break;
+      default:
+        themes = "Флирт"
+        break;
+    }
+    if (user.companion.themes === 'talk' || user.companion.themes === 'problem') {
+      return (
+        <div>
+          <h1>Правила чата "{themes}"</h1>
+          <h2> <b> Запрещенно:</b> </h2>
+          <ul>
+            <li>Рассылать спам и рекламу</li>
+            <li>Продавать товары или услуги</li>
+            <li>Оскорблять собеседника и угрожать</li>
+            <li>Отправлять сообщения сексуально-порнографического характера</li>
+            <li>Быть двуличным))</li>
+          </ul> <br />
+          <h2> <b> В начале общения запрещенно:</b> </h2>
+          <ul>
+            <li>Предлагать перейти в сторонние Мессенджеры и Соц.сети</li>
+          </ul>
+        </div>
+
+      )
+    } else {
+      return (
+        <div>
+          <h1>Правила чата "{themes}"</h1>
+          <h2> <b>Запрещенно:</b> </h2>
+          <ul>
+            <li>Рассылать спам и рекламу</li>
+            <li>Продавать товары или услуги</li>
+            <li>Оскорблять собеседника и угрожать</li>
+          </ul> <br />
+        </div>
+      )
+    }
+  }
+
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
+  const acceptRules = () => {
+    closeModal()
+    const theme = user.companion.themes;
+    setRules(rules => ({ ...rules, [theme]: 1 }))
+
+  }
+
+  const handlerRulesAccept = name => {
+    if (name === 0) {
+      openModal()
+    }
+  }
+
+  const handlerRules = () => {
+    const theme = user.companion.themes;
+    handlerRulesAccept(rules[theme])
+
+  }
+
+  const inputSave = e => {
+    console.log(e.target.value);
+    
+  }
+
 
   return (
-    <section className="home">
-      <form  className="form grid">
+    <section className="home" id='home'>
+      <form className="form grid">
         <section className="home__container">
 
 
@@ -203,21 +335,21 @@ export const Home = () => {
                   value="Общение"
                   style={{ boxShadow: '-5px 5px 2px #5EC6D9' }}
                   className={`button shadow button_blue blue`}
-                  onClick={e => updateState(setCompanion, { [e.target.name]: 'talk' }, addActive(e))}
+                  onClick={e => updateState(setCompanion, { [e.target.name]: 'talk' }, themesClass(e.target))}
                 />
                 <input
                   name='themes'
                   type="button"
                   value="Проблемы"
                   className={`button shadow button_orange orange`}
-                  onClick={e => updateState(setCompanion, { [e.target.name]: 'problem' }, addActive(e))}
+                  onClick={e => updateState(setCompanion, { [e.target.name]: 'problem' }, themesClass(e.target))}
                 />
                 <input
                   name='themes'
                   type="button"
                   value="..."
                   className={`button shadow button_red red`}
-                  onClick={e => updateState(setCompanion, { [e.target.name]: 'flirt' }, addActive(e))}
+                  onClick={e => updateState(setCompanion, { [e.target.name]: 'flirt' }, themesClass(e.target))}
                 />
               </div>
             </div>
@@ -233,9 +365,10 @@ export const Home = () => {
                   className='blue body__input'
                   type="text"
                   name="description"
-                  onChange={e => updateState(setMyself, { [e.target.name]: e.target.value })}
+                  onChange={e => updateState(setMyself, { [e.target.name]: e.target.value }, inputSave(e))}
                   placeholder='Танцую, играю на скрипке.'
                   autoComplete='off'
+                  maxLength='35'
                   required />
               </div>
             </div>
@@ -255,7 +388,7 @@ export const Home = () => {
                       type="button"
                       value="?"
                       className="blue button  background__button background__button_active"
-                      onClick={e => updateState(setMyself, { [e.target.name]: e.target.value }, addActive(e))}
+                      onClick={e => updateState(setMyself, { [e.target.name]: null }, addActive(e), handlerGrey('genderF', true), handlerGrey('yearF', true), handlerGrey('year', true))}
                     />
                     <input
                       name='gender'
@@ -287,10 +420,11 @@ export const Home = () => {
                       type="button"
                       value="?"
                       className="blue button  background__button background__button_active"
-                      onClick={e => updateState(setCompanion, { 'gender': arrayGender(e.target.value) })}
+                      onClick={e => updateState(setCompanion, { 'gender': arrayGender(e.target.value) }, removeClass(e.target.name), addClassFirstElement(e.target.name))}
                     />
                     <input
                       name='genderF'
+                      disabled={false}
                       type="button"
                       value="М"
                       className="blue button  background__button"
@@ -298,6 +432,7 @@ export const Home = () => {
                     />
                     <input
                       name='genderF'
+                      disabled={false}
                       type="button"
                       value="Ж"
                       className="blue button  background__button"
@@ -325,11 +460,12 @@ export const Home = () => {
                       type="button"
                       value="?"
                       className="blue button background__button background__button_active"
-                      onClick={e => updateState(setMyself, { [e.target.name]: 0 }, addActive(e))}
+                      onClick={e => updateState(setMyself, { [e.target.name]: null }, addActive(e), handlerGrey('yearF', true))}
 
                     />
                     <input
                       name='year'
+                      disabled={false}
                       type="button"
                       value="< 16"
                       className="blue button  background__button"
@@ -337,6 +473,7 @@ export const Home = () => {
                     />
                     <input
                       name='year'
+                      disabled={false}
                       type="button"
                       value="17 - 21"
                       className="blue button  background__button"
@@ -349,6 +486,7 @@ export const Home = () => {
                   <div className="background ">
                     <input
                       name='year'
+                      disabled={false}
                       type="button"
                       value="22 - 27"
                       className="blue button  background__button"
@@ -356,6 +494,7 @@ export const Home = () => {
                     />
                     <input
                       name='year'
+                      disabled={false}
                       type="button"
                       value="28 - 35"
                       className="blue button  background__button"
@@ -363,6 +502,7 @@ export const Home = () => {
                     />
                     <input
                       name='year'
+                      disabled={false}
                       type="button"
                       value="36 <"
                       className="blue button  background__button"
@@ -383,10 +523,11 @@ export const Home = () => {
                       type="button"
                       value="?"
                       className="blue button  background__button background__button_active"
-                      onClick={e => updateState(setCompanion, { 'year': 0 })}
+                      onClick={e => updateState(setCompanion, { 'year': 0 }, removeClass(e.target.name), addClassFirstElement(e.target.name))}
                     />
                     <input
                       name='yearF'
+                      disabled={false}
                       type="button"
                       value="< 16"
                       className="blue button  background__button"
@@ -394,6 +535,7 @@ export const Home = () => {
                     />
                     <input
                       name='yearF'
+                      disabled={false}
                       type="button"
                       value="17 - 21"
                       className="blue button  background__button"
@@ -406,6 +548,7 @@ export const Home = () => {
                   <div className="background ">
                     <input
                       name='yearF'
+                      disabled={false}
                       type="button"
                       value="22 - 27"
                       className="blue button  background__button"
@@ -413,6 +556,7 @@ export const Home = () => {
                     />
                     <input
                       name='yearF'
+                      disabled={false}
                       type="button"
                       value="28 - 35"
                       className="blue button  background__button"
@@ -420,6 +564,7 @@ export const Home = () => {
                     />
                     <input
                       name='yearF'
+                      disabled={false}
                       type="button"
                       value="36 <"
                       className="blue button  background__button"
@@ -436,9 +581,27 @@ export const Home = () => {
 
 
         </section>
-        <input type="button" onClick={sendData} className='button shadow button-submit' value='Поиск' />
+        <input type="button" id='ruledone' onClick={handlerRules} className='button shadow button-submit' value='Поиск' />
 
       </form>
+
+      <Modal
+        className="Modal"
+        overlayClassName="Overlay"
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        closeTimeoutMS={500}
+      >
+        <section className="rules modal-show " id='modal'>
+          {rulesContainer()}
+          <div className="rules__buttons flex">
+            <button onClick={acceptRules} className='button shadow button-submit button-find'>Принять</button>
+            <button onClick={closeModal} className='button  button-cancel button_red red'>Отмена</button>
+          </div>
+
+        </section>
+
+      </Modal>
 
     </section>
   )

@@ -200,6 +200,14 @@
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 .rules__buttons {
   -ms-flex-pack: distribute;
       justify-content: space-around;

@@ -5,7 +5,6 @@ export default function (state, action) {
             ...state, 
             {
                 id: Date.now(),
-                
             }
         ]
             break;

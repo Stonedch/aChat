@@ -1,7 +1,15 @@
 .container{
     max-width: 540px;
-    margin: auto;
     background-color: white;
     padding: 25px;
     border-radius: 8px;
 }
+
+#root{
+    height: 100vh;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center 
+}
+

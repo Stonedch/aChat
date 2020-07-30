@@ -3,8 +3,11 @@ $blue: #2d9cdb
 $orange: #f2c94c
 $green: #92A441
 
+ 
+    
+
 .body__container
-    padding: 15px 0
+    padding: 11px 0
 
 .grid
     display: grid
@@ -25,14 +28,17 @@ $green: #92A441
     margin-bottom: 12px
 
 .button
-    font-size: 24px
-    line-height: 28px
+    font-size: 21px
+    line-height: 25px
     color: white
     padding: 13px 6px
+    transition: .6s 
     border: none
     cursor: pointer
-    transition: .5s
     outline: none
+
+.transition
+    transition: all 3s
 .shadow
     &:hover
       transition: .6s
@@ -46,12 +52,15 @@ $green: #92A441
     background-color: black
 
 .button_blue
+    background-color: $blue
     &:hover
         box-shadow: -5px 5px 2px #5EC6D9
 .button_orange
+    background-color: $orange
     &:hover
         box-shadow: -5px 5px 2px #FFDE79
 .button_red
+    background-color: $red
     &:hover
         box-shadow: -5px 5px 2px #CF5959
 
@@ -67,7 +76,7 @@ $green: #92A441
     outline: none
     color: white
     font-family: 'Roboto'
-    transition:  .6s
+    transition: .6s
     &::placeholder
         color: #D8D8D8
         font-size: 17px
@@ -75,6 +84,7 @@ $green: #92A441
     
 .body__columns
     grid-template-columns: 1fr 1fr
+    grid-gap: 20px
 
 .none
     height: 20px
@@ -89,7 +99,7 @@ $green: #92A441
 
 
 .background__button_active
-    background-color: $green
+    background-color: $green 
 
 .button-submit
     margin-top: 20px
@@ -156,24 +166,73 @@ $green: #92A441
 @keyframes modal-show
   0%
       transform: scale(0)
-//   45%
-//       transform: scale(1.05)
-//   80% 
-//       transform: scale(.95)
   100%
-      transform: scale(1)
-
+      transform: scale(0.9)
 
 .ReactModal__Overlay--after-open
     transition: all .6s ease-out
     background-color: rgba(255,255,255,.7)
     .rules
-        transition: all .6s ease-out
-        transform: scale(1)
-        opacity: 1
+        transition: all .1s ease-out
+        transform: scale(0.9)
+        width: 100vw
 
 .ReactModal__Overlay--before-close
     background-color: rgba(255,255,255,0)
     .rules
         transform: scale(0)
         opacity: 0
+
+
+@media screen and(max-width: 500px)
+    .button
+        font-size: 20px
+    .body__data
+        grid-gap: 37px
+    .title
+        font-size: 14px
+
+@media screen and(max-width: 480px)
+    .body__data
+        grid-gap: 16px
+    .button
+        font-size: 22px
+    .shadow
+        padding: 11px 13px
+    .container
+        padding: 15px
+    .change
+        display: grid
+        grid-template-columns: 1fr
+        grid-gap: 20px
+    .none 
+        height: 20px
+    .space
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        grid-gap: 0
+    #root
+        height: auto
+    .ReactModal__Overlay--after-open .rules
+        .button-cancel
+            padding: 10px 13px
+
+@media screen and(max-width: 420px)
+    .button
+        font-size: 20px
+    .buttons
+        display: grid
+        grid-template-columns: 1fr
+    .body__input
+        width: 90%
+    .ReactModal__Overlay--after-open .rules
+        padding: 20px
+@media screen and(max-width: 345px)
+    .ReactModal__Overlay--after-open .rules
+    .title
+        font-size: 13px
+    .title
+        font-size: 11px
+    .button
+        font-size: 18px
+    

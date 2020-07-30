@@ -3,7 +3,7 @@ import './App.css';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import { Home } from './components/Home/Home'
+import { Home } from './components/Home/Home.jsx'
 import Search from './components/Search/Search'
 import Chat from './components/Chat/Chat'
 import Error from './components/Error/Error'

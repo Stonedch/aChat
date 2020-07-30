@@ -1,11 +1,13 @@
 import React from "react";
-import './Chat.css';
+import style from './Chat.module.css'
 
 
 
 
 function Chat() {
-  return <h1> Chatting </h1>
+  return(
+    <div className="container">arstr</div>
+  )
 }
 
 export default Chat

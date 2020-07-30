@@ -1,8 +1,16 @@
 import React from "react"
-import './Search.css';
+
+import search from './searching.svg'
+import styles from './Search.module.css';
+
+
 
 function Search() {
-  return <h1> Loading... </h1>
+  return (
+    <div className={styles.container}>
+      <img src={search} alt="search" />
+    </div>
+  )
 }
 
 export default Search

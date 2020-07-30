@@ -1,5 +1,5 @@
 .body__container {
-  padding: 15px 0;
+  padding: 11px 0;
 }
 
 .grid {
@@ -30,15 +30,20 @@
 }
 
 .button {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 21px;
+  line-height: 25px;
   color: white;
   padding: 13px 6px;
+  -webkit-transition: .6s;
+  transition: .6s;
   border: none;
   cursor: pointer;
-  -webkit-transition: .5s;
-  transition: .5s;
   outline: none;
+}
+
+.transition {
+  -webkit-transition: all 3s;
+  transition: all 3s;
 }
 
 .shadow:hover {
@@ -62,14 +67,26 @@
   background-color: black;
 }
 
+.button_blue {
+  background-color: #2d9cdb;
+}
+
 .button_blue:hover {
   -webkit-box-shadow: -5px 5px 2px #5EC6D9;
           box-shadow: -5px 5px 2px #5EC6D9;
 }
 
+.button_orange {
+  background-color: #f2c94c;
+}
+
 .button_orange:hover {
   -webkit-box-shadow: -5px 5px 2px #FFDE79;
           box-shadow: -5px 5px 2px #FFDE79;
+}
+
+.button_red {
+  background-color: #A22626;
 }
 
 .button_red:hover {
@@ -118,6 +135,7 @@
 .body__columns {
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
 }
 
 .none {
@@ -235,12 +253,20 @@
     -webkit-transform: scale(0);
             transform: scale(0);
   }
+  100% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
 }
 
 @keyframes modal-show {
   0% {
     -webkit-transform: scale(0);
             transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
   }
 }
 
@@ -251,11 +277,11 @@
 }
 
 .ReactModal__Overlay--after-open .rules {
-  -webkit-transition: all .6s ease-out;
-  transition: all .6s ease-out;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  opacity: 1;
+  -webkit-transition: all .1s ease-out;
+  transition: all .1s ease-out;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  width: 100vw;
 }
 
 .ReactModal__Overlay--before-close {
@@ -266,4 +292,84 @@
   -webkit-transform: scale(0);
           transform: scale(0);
   opacity: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .button {
+    font-size: 20px;
+  }
+  .body__data {
+    grid-gap: 37px;
+  }
+  .title {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .body__data {
+    grid-gap: 16px;
+  }
+  .button {
+    font-size: 22px;
+  }
+  .shadow {
+    padding: 11px 13px;
+  }
+  .container {
+    padding: 15px;
+  }
+  .change {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  .none {
+    height: 20px;
+  }
+  .space {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0;
+  }
+  #root {
+    height: auto;
+  }
+  .ReactModal__Overlay--after-open .rules .button-cancel {
+    padding: 10px 13px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .button {
+    font-size: 20px;
+  }
+  .buttons {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  .body__input {
+    width: 90%;
+  }
+  .ReactModal__Overlay--after-open .rules {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .title {
+    font-size: 13px;
+  }
+  .title {
+    font-size: 11px;
+  }
+  .button {
+    font-size: 18px;
+  }
 }

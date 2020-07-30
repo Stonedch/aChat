@@ -30,7 +30,7 @@ const userSchema = new Schema({
 
     },
     companion: {
-        themes: {
+        theme: {
             type: String,
             required: true
         },

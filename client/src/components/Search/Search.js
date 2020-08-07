@@ -7,7 +7,7 @@ import styles from './Search.module.css';
 
 function Search() {
   return (
-    <div className={styles.container}>
+    <div className={styles.search_container}>
       <img src={search} alt="search" />
     </div>
   )

@@ -7,12 +7,12 @@ import { Home } from './components/Home/Home.jsx'
 import Search from './components/Search/Search'
 import Chat from './components/Chat/Chat'
 import Error from './components/Error/Error'
-
+import custom from './css/container.module.css'
 
 
 function App() {
   return (
-    <section className="container">
+    <section className={custom.container}>
       <main>
         <BrowserRouter>
           <Switch>
